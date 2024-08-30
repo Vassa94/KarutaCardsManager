@@ -1,5 +1,4 @@
 // src/components/CardStatistics.tsx
-import React from 'react';
 import { Paper, Typography, Grid, Box } from '@mui/material';
 import { Star, StarBorder } from '@mui/icons-material';
 import CoinIcon from '../assets/img/coin.svg';

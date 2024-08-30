@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import { IconButton, Tooltip, Box, Typography, Slider } from '@mui/material';
 import { PlayArrow, Pause, VolumeUp, VolumeOff } from '@mui/icons-material';
 import { createMusicWebSocket } from '../services/api';
@@ -13,7 +13,7 @@ const scrollAnimation = keyframes`
   100% { transform: translateX(-100%); }
 `;
 
-export default function MusicPlayer({ currentTrack }: MusicPlayerProps) {
+export default function MusicPlayer({ }: MusicPlayerProps) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
     const [volume, setVolume] = useState(20);
@@ -61,7 +61,7 @@ export default function MusicPlayer({ currentTrack }: MusicPlayerProps) {
         }
     };
 
-    const handleVolumeChange = (event: Event, newValue: number | number[]) => {
+    const handleVolumeChange = (_event: Event, newValue: number | number[]) => {
         const newVolume = newValue as number;
         setVolume(newVolume);
         if (audioRef.current) {

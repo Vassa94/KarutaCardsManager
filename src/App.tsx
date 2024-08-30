@@ -1,11 +1,10 @@
 // src/components/CardInventoryDashboard.tsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Paper,
   Typography,
   Box,
   IconButton,
-  useTheme,
   Button,
   Modal
 } from '@mui/material';
@@ -36,7 +35,6 @@ export default function CardInventoryDashboard() {
   const [modalOpen, setModalOpen] = useState(false);
   const [statsModalOpen, setStatsModalOpen] = useState(false);
 
-  const theme = useTheme();
   const { isDarkMode, toggleTheme } = useCustomTheme();
 
   useEffect(() => {

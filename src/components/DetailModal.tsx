@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -13,14 +12,14 @@ type DetailModalProps = {
 };
 
 export default function DetailModal({ open, onClose, card }: DetailModalProps) {
-    const [imageSrc, setImageSrc] = useState<string>('');
+    //const [imageSrc, setImageSrc] = useState<string>('');
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (card.code) {
             const imagePath = new URL(`../assets/img/cards/${card.code}.png`, import.meta.url).href;
-            setImageSrc(imagePath);
+            //setImageSrc(imagePath);
         }
-    }, [card.code]);
+    }, [card.code]); */
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth>
