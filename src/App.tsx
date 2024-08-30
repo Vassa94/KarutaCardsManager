@@ -109,7 +109,7 @@ export default function CardInventoryDashboard() {
       <Paper className="dashboard-paper">
         <Box className='search-upload-bar mb-30' sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography component="h1" variant="h4" color="primary" className="dashboard-title">
-            Karuta Card Manager v0.7
+            Karuta Card Manager v1.0
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <MusicPlayer currentTrack={currentTrack} />
