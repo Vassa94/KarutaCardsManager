@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Papa from 'papaparse';
 import { CardData } from '../types/CardData'; 
+import { Tooltip } from '@mui/material';
 
 type FileUploadProps = {
     onFileUpload: (parsedCards: CardData[]) => void;
@@ -57,23 +58,25 @@ export default function FileUpload({ onFileUpload }: FileUploadProps) {
     };
 
     return (
-        <div className="upload-button">
-            <input
-                accept=".csv"
-                style={{ display: 'none' }}
-                id="raised-button-file"
-                type="file"
-                onChange={handleFileUpload}
-            />
-            <label htmlFor="raised-button-file">
-                <Button className="button" variant="contained" component="span">
-                    <span className="text">
-                        <CloudUploadIcon />
-                        Upload CSV
-                    </span>
-                    <div className="wave"></div>
-                </Button>
-            </label>
-        </div>
+        <Tooltip title="Descarga tu csv usando el comando k!sheet">            
+            <div className="upload-button">
+                <input
+                    accept=".csv"
+                    style={{ display: 'none' }}
+                    id="raised-button-file"
+                    type="file"
+                    onChange={handleFileUpload}
+                />
+                <label htmlFor="raised-button-file">
+                    <Button className="button" variant="contained" component="span">
+                        <span className="text">
+                            <CloudUploadIcon />
+                            Upload CSV
+                        </span>
+                        <div className="wave"></div>
+                    </Button>
+                </label>
+            </div>
+        </Tooltip>
     );
 }

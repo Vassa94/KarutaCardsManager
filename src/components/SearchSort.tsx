@@ -5,20 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import {CardData} from '../types/CardData'
-
-// Actualizar el tipo CardData con los nuevos tipos
-/* type CardData = {
-    code: string;
-    number: number;
-    edition: number;
-    character: string;
-    series: string;
-    quality: string;
-    obtainedDate: Date;  // Cambiado a Date
-    burnValue: number;   // Cambiado a number
-}; */
 
 type SearchSortProps = {
     searchTerm: string;
@@ -34,8 +21,6 @@ export default function SearchSort({
     onSearchTermChange,
     sortField,
     onSortFieldChange,
-    sortOrder,
-    onSortOrderChange,
 }: SearchSortProps) {
     return (
         <div className="search-sort">
@@ -69,12 +54,7 @@ export default function SearchSort({
                     <MenuItem value="obtainedDate">Obtained Date</MenuItem>
                     <MenuItem value="burnValue">Burn Value</MenuItem>
                 </Select>
-            </FormControl>
-            <IconButton onClick={onSortOrderChange}>
-                <SortByAlphaIcon
-                    style={{ transform: sortOrder === 'asc' ? 'rotate(0deg)' : 'rotate(180deg)' }}
-                />
-            </IconButton>
+            </FormControl>            
         </div>
     );
 }

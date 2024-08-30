@@ -5,20 +5,31 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Star, StarBorder, ArrowDropDown, ArrowDropUp, LooksOne,LooksTwo, Looks3, Looks4, Looks5, Looks6  } from '@mui/icons-material';
+import {
+    Star,
+    StarBorder,
+    ArrowDropDown,
+    ArrowDropUp,
+    LooksOne,
+    LooksTwo,
+    Looks3,
+    Looks4,
+    Looks5,
+    Looks6,
+} from '@mui/icons-material';
 import CoinIcon from '../assets/img/coin.svg';
+import NoDataImage from '../assets/img/404.png';
 import { CardData } from '../types/CardData';
-
 
 type CardTableProps = {
     cards: CardData[];
     sortField: keyof CardData;
     sortOrder: 'asc' | 'desc';
     onSortChange: (field: keyof CardData) => void;
-    onRowClick: (card: CardData) => void; // Nueva prop
+    onRowClick: (card: CardData) => void;
 };
 
-const edition = [ <LooksOne />, <LooksTwo />, <Looks3 />, <Looks4 />, <Looks5 />, <Looks6/> ]
+const edition = [<LooksOne />, <LooksTwo />, <Looks3 />, <Looks4 />, <Looks5 />, <Looks6 />];
 
 const columns: (keyof CardData)[] = [
     'code',
@@ -36,9 +47,9 @@ export default function CardTable({
     sortField,
     sortOrder,
     onSortChange,
-    onRowClick, // Nueva prop
+    onRowClick,
 }: CardTableProps) {
-    const processedCards = cards.map(card => ({
+    const processedCards = cards.map((card) => ({
         ...card,
         obtainedDate: new Date(card.obtainedDate),
     }));
@@ -67,11 +78,7 @@ export default function CardTable({
     const renderBurnValue = (value: number) => (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span>{value}</span>
-            <img
-                src={CoinIcon}
-                alt="Coin Icon"
-                style={{ width: 20, height: 20, marginLeft: 5 }}
-            />
+            <img src={CoinIcon} alt="Coin Icon" style={{ width: 20, height: 20, marginLeft: 5 }} />
         </div>
     );
 
@@ -79,45 +86,46 @@ export default function CardTable({
 
     return (
         <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {columns.map((key) => (
-                            <TableCell
-                                key={key}
-                                onClick={() => handleSort(key)}
-                                className="columns-headers"
-                            >
-                                <div className={`header-cell header-${key}`}>
-                                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                                    {sortField === key && (
-                                        sortOrder === 'asc' ? <ArrowDropUp /> : <ArrowDropDown />
-                                    )}
-                                </div>
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {processedCards.map((card, index) => (
-                        <TableRow
-                            key={index}
-                            onClick={() => onRowClick(card)} // Manejar clic en la fila
-                            style={{ cursor: 'pointer' }}
-                        >
+            {cards.length === 0 ? (
+                <div className="no-data-container">
+                    <img src={NoDataImage} alt="No data" className="no-data-image" />
+                    <p className="no-data-text">No hay cartas para mostrar</p>
+                </div>
+            ) : (
+                <Table>
+                    <TableHead>
+                        <TableRow>
                             {columns.map((key) => (
-                                <TableCell key={key} className={`cell-${key} ${key === 'code' ? 'strong-text' : ''}`}>
-                                    {key === 'quality' ? renderStars(card[key] as string) :
-                                        key === 'burnValue' ? renderBurnValue(card[key] as number) :
-                                            key === 'obtainedDate' ? renderDate(card[key] as Date) :
-                                                key === 'edition' ? edition[card[key]-1] :
-                                                String(card[key])}
+                                <TableCell key={key} onClick={() => handleSort(key)} className="columns-headers">
+                                    <div className={`header-cell header-${key}`}>
+                                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                                        {sortField === key && (sortOrder === 'asc' ? <ArrowDropUp /> : <ArrowDropDown />)}
+                                    </div>
                                 </TableCell>
                             ))}
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHead>
+                    <TableBody>
+                        {processedCards.map((card, index) => (
+                            <TableRow key={index} onClick={() => onRowClick(card)} style={{ cursor: 'pointer' }}>
+                                {columns.map((key) => (
+                                    <TableCell key={key} className={`cell-${key} ${key === 'code' ? 'strong-text' : ''}`}>
+                                        {key === 'quality'
+                                            ? renderStars(card[key] as string)
+                                            : key === 'burnValue'
+                                                ? renderBurnValue(card[key] as number)
+                                                : key === 'obtainedDate'
+                                                    ? renderDate(card[key] as Date)
+                                                    : key === 'edition'
+                                                        ? edition[card[key] - 1]
+                                                        : String(card[key])}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            )}
         </TableContainer>
     );
 }
