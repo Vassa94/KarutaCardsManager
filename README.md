@@ -1,5 +1,5 @@
 
-# Karuta Cards Manager: An Overview
+# Karuta Cards Manager
 
 Made using:
 
