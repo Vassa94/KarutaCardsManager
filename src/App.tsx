@@ -1,4 +1,3 @@
-// src/components/CardInventoryDashboard.tsx
 import { useState, useEffect } from 'react';
 import {
   Paper,
@@ -6,11 +5,17 @@ import {
   Box,
   IconButton,
   Button,
-  Modal
+  Modal,
+  Chip,
+  Tooltip,
+  Fab,
+  Zoom
 } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { createMusicWebSocket } from './services/api';
 import MusicPlayer from './components/MusicPlayer';
 import ErrorSnackbar from './components/ErrorSnackbar';
@@ -34,12 +39,43 @@ export default function CardInventoryDashboard() {
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [statsModalOpen, setStatsModalOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
+  const [quickFilters] = useState([
+    { 
+      id: 'rare',
+      label: 'Cartas más raras', 
+      filter: (cards: CardData[]) => [...cards].sort((a, b) => {
+        const aQuality = Number(a.quality || 0);
+        const bQuality = Number(b.quality || 0);
+        return bQuality - aQuality;
+      })
+    },
+    { 
+      id: 'recent',
+      label: 'Últimas obtenidas', 
+      filter: (cards: CardData[]) => [...cards].sort((a, b) => {
+        const dateA = a.obtainedDate ? new Date(a.obtainedDate).getTime() : 0;
+        const dateB = b.obtainedDate ? new Date(b.obtainedDate).getTime() : 0;
+        return dateB - dateA;
+      })
+    },
+    { 
+      id: 'value',
+      label: 'Mayor valor', 
+      filter: (cards: CardData[]) => [...cards].sort((a, b) => {
+        const valueA = parseInt(String(a.burnValue || '0'), 10);
+        const valueB = parseInt(String(b.burnValue || '0'), 10);
+        return valueB - valueA;
+      })
+    }
+  ]);
 
   const { isDarkMode, toggleTheme } = useCustomTheme();
 
   useEffect(() => {
     filterAndSortCards();
-  }, [cards, searchTerm, sortField, sortOrder]);
+  }, [cards, searchTerm, sortField, sortOrder, activeFilter]);
 
   useEffect(() => {
     const ws = createMusicWebSocket((track) => {
@@ -51,6 +87,15 @@ export default function CardInventoryDashboard() {
         ws.close();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleSortChange = (field: keyof CardData) => {
@@ -70,13 +115,20 @@ export default function CardInventoryDashboard() {
         )
       );
 
-      filtered.sort((a, b) => {
-        const aValue = a[sortField]?.toString().toLowerCase() ?? '';
-        const bValue = b[sortField]?.toString().toLowerCase() ?? '';
-        if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-        if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
-        return 0;
-      });
+      if (activeFilter) {
+        const currentFilter = quickFilters.find(f => f.id === activeFilter);
+        if (currentFilter) {
+          filtered = currentFilter.filter(filtered);
+        }
+      } else {
+        filtered.sort((a, b) => {
+          const aValue = a[sortField]?.toString().toLowerCase() ?? '';
+          const bValue = b[sortField]?.toString().toLowerCase() ?? '';
+          if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+          if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+          return 0;
+        });
+      }
 
       setFilteredCards(filtered);
     } catch (err) {
@@ -102,6 +154,21 @@ export default function CardInventoryDashboard() {
   const handleFileUpload = (parsedCards: CardData[]) => {
     setCards(parsedCards);
     setFilteredCards(parsedCards);  // Actualizar también filteredCards
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  const applyQuickFilter = (filterId: string) => {
+    if (activeFilter === filterId) {
+      setActiveFilter(null);
+    } else {
+      setActiveFilter(filterId);
+    }
   };
 
   return (
@@ -132,6 +199,21 @@ export default function CardInventoryDashboard() {
             sortOrder={sortOrder}
             onSortOrderChange={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
           />
+        </Box>
+
+        <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+          {quickFilters.map((filter) => (
+            <Tooltip key={filter.id} title={`Filtrar por ${filter.label}`}>
+              <Chip
+                icon={<FilterListIcon />}
+                label={filter.label}
+                onClick={() => applyQuickFilter(filter.id)}
+                color={activeFilter === filter.id ? "primary" : "default"}
+                variant={activeFilter === filter.id ? "filled" : "outlined"}
+                sx={{ cursor: 'pointer' }}
+              />
+            </Tooltip>
+          ))}
         </Box>
 
         <CardTable
@@ -179,6 +261,21 @@ export default function CardInventoryDashboard() {
             </Box>
           </Box>
         </Modal>
+
+        <Zoom in={showScrollTop}>
+          <Fab
+            color="primary"
+            size="small"
+            onClick={scrollToTop}
+            sx={{
+              position: 'fixed',
+              bottom: 16,
+              right: 16,
+            }}
+          >
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </Zoom>
       </Paper>
     </Box>
   );

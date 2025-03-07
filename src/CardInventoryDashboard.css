@@ -14,10 +14,14 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  height: 92vh;
+  height: auto !important;
+  min-height: 92vh;
   gap: 1rem;
-  overflow-y: auto;
+  overflow: visible !important;
   /* Para habilitar el scroll si el contenido es demasiado alto */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
 }
 
 .dashboard-header {
@@ -41,6 +45,12 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .search-container {
@@ -253,4 +263,106 @@ a .wave::after {
   font-size: 20px;
   font-family: "Comic Sans MS", "Comic Sans", cursive; /* Letra redondeada */
   margin-top: 10px;
+}
+
+/* Mejoras en la tabla */
+.MuiTableContainer-root {
+  border-radius: 8px;
+  overflow: auto !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: calc(100vh - 300px) !important; /* Altura máxima con espacio para los elementos superiores */
+  min-height: 400px;
+}
+
+/* Estilo para el scrollbar */
+.MuiTableContainer-root::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Fijar el encabezado de la tabla */
+.MuiTableHead-root {
+  position: sticky;
+  top: 0;
+  background-color: var(--background-default);
+  z-index: 1;
+}
+
+.MuiTableRow-root {
+  transition: background-color 0.2s ease;
+}
+
+.MuiTableRow-root:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Animaciones para los botones */
+.MuiButton-root {
+  transition: all 0.2s ease;
+}
+
+.MuiButton-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejoras en los inputs */
+.MuiTextField-root {
+  transition: all 0.3s ease;
+}
+
+.MuiTextField-root:focus-within {
+  transform: scale(1.02);
+}
+
+/* Animación para el modal */
+.MuiModal-root .MuiBox-root {
+  transition: all 0.3s ease;
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Scroll suave */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Mejoras en el responsive */
+@media (max-width: 600px) {
+  .search-upload-bar {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .dashboard-paper {
+    padding: 0.5rem;
+    height: auto;
+  }
 }
