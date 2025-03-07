@@ -1,59 +1,106 @@
+# KarutaCardsManager
 
-# Karuta Cards Manager
+## 📝 Descripción
+KarutaCardsManager es una aplicación web moderna diseñada para gestionar y organizar cartas Karuta. Desarrollada con React y TypeScript, ofrece una interfaz intuitiva y funcional para los entusiastas de Karuta.
 
-Made using:
+## 🚀 Características
+- Interfaz de usuario moderna y responsive con Material-UI
+- Gestión eficiente de cartas Karuta
+- Soporte para importación/exportación de datos CSV
+- Sistema de filtrado y búsqueda avanzada
+- Integración con Firebase para almacenamiento y autenticación
 
--React
--TypeScript
--Material-UI (MUI)
--Papaparse
--WebSockets
+## 🛠️ Tecnologías
+- **Frontend:** React 18
+- **Lenguaje:** TypeScript
+- **UI Framework:** Material-UI (MUI) v6
+- **Backend/Hosting:** Firebase
+- **Bundler:** Vite
+- **Gestión de Paquetes:** PNPM
+- **Procesamiento de Datos:** PapaParse
+- **Linting:** ESLint
 
-User Experience: The integration of dark mode and real-time music updates greatly enhances the experience, making it immersive and visually engaging.
-Performance: Filtering and sorting are handled efficiently, but performance could be further optimized when dealing with larger datasets by implementing memoization or virtualization techniques.
-Future Additions: Adding features such as automated updates of the card data through direct integration with Discord bots or expanding the player to support user playlists could further enrich the functionality.
-Overall, Karuta Cards Manager is tailored to cater to Karuta enthusiasts, providing a smooth, engaging way to manage and enjoy their card collections alongside an anime-themed music experience.
+## 📁 Estructura del Proyecto
+```
+KarutaCardsManager/
+├── src/                    # Código fuente principal
+│   ├── assets/            # Recursos estáticos
+│   ├── components/        # Componentes React reutilizables
+│   ├── contexts/          # Contextos de React
+│   ├── services/          # Servicios y lógica de negocio
+│   ├── types/            # Definiciones de tipos TypeScript
+│   ├── App.tsx           # Componente principal
+│   └── main.tsx          # Punto de entrada
+├── public/                # Archivos públicos estáticos
+├── build/                 # Archivos compilados
+└── firebase.json         # Configuración de Firebase
+```
 
-Overall, Karuta Cards Manager is tailored to cater to Karuta enthusiasts, providing a smooth, engaging way to manage and enjoy their card collections alongside an anime-themed music experience.
-## Features
+## 🚦 Requisitos Previos
+- Node.js (versión recomendada: >=16)
+- PNPM
+- Cuenta de Firebase (para funcionalidades de backend)
 
-- CSV Card Data Visualization: Users can upload their Karuta card CSV files to view, filter, and sort their collection. This is achieved through a combination of components such as FileUpload, SearchSort, and CardTable.
+## ⚙️ Instalación
 
-- Music Player: Integrated with a WebSocket connection, the app features a music player specifically tailored to stream anime music, providing a thematic background for users.
-
-- Dynamic Filtering and Sorting: Users can filter and sort their cards based on multiple fields like character, series, and obtained date. Sorting is handled dynamically with the ability to switch between ascending and descending orders.
-
-- Dark Mode Toggle: The app supports light and dark themes, allowing users to switch modes for a comfortable viewing experience..
-
-- Card Details and Statistics: Users can click on individual cards to view more details in a modal and access comprehensive statistics about their card collection.
-
-- Error Handling: Errors during data processing are captured and displayed via an ErrorSnackbar, ensuring that issues are communicated clearly to the user.
-## 🚀 Instructions to Launch the Application
-
-Follow these steps to set up and run the application locally:
-
-### Prerequisites
-
-Make sure you have installed:
-
-- **Node.js** (version 16 or higher) and npm
-- **Git** to clone the repository
-
-### Step 1: Clone the Repository
-
+1. Clonar el repositorio:
 ```bash
-git clone https://github.com/Vassa94/KarutaCardsManager
+git clone [URL_DEL_REPOSITORIO]
 cd KarutaCardsManager
 ```
 
-### Step 2: Install Dependencies
-Install all the necessary dependencies by running:
+2. Instalar dependencias:
 ```bash
-npm install
+pnpm install
 ```
 
-### Step 3: Start the Application
-Start the application by running:
+3. Configurar variables de entorno:
+Crear un archivo `.env` en la raíz del proyecto y añadir las variables necesarias para Firebase.
+
+4. Iniciar el servidor de desarrollo:
 ```bash
-npm run dev
+pnpm dev
 ```
+
+## 📜 Scripts Disponibles
+
+- `pnpm dev`: Inicia el servidor de desarrollo
+- `pnpm build`: Compila el proyecto para producción
+- `pnpm lint`: Ejecuta el linter
+- `pnpm preview`: Vista previa de la build de producción
+
+## 🔧 Configuración
+
+### Firebase
+1. Crear un proyecto en Firebase Console
+2. Habilitar los servicios necesarios (Authentication, Firestore, etc.)
+3. Copiar las credenciales de configuración
+4. Actualizar la configuración en el archivo de configuración de Firebase
+
+### Variables de Entorno
+Crear un archivo `.env` con las siguientes variables:
+```
+VITE_FIREBASE_API_KEY=tu_api_key
+VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
+VITE_FIREBASE_PROJECT_ID=tu_project_id
+VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
+VITE_FIREBASE_APP_ID=tu_app_id
+```
+
+## 🤝 Contribución
+Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
+
+1. Fork el proyecto
+2. Crea una rama para tu característica (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
+
+## 📧 Contacto
+[Tu Nombre] - [tu@email.com]
+
+Link del proyecto: [https://github.com/username/KarutaCardsManager](https://github.com/username/KarutaCardsManager)
