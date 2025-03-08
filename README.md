@@ -100,7 +100,4 @@ Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
 ## 📄 Licencia
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
 
-## 📧 Contacto
-[Tu Nombre] - [tu@email.com]
-
-Link del proyecto: [https://github.com/username/KarutaCardsManager](https://github.com/username/KarutaCardsManager)
+Link del proyecto: [https://karutacardsmanager.web.app](https://karutacardsmanager.web.app)
